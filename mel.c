@@ -182,346 +182,41 @@ mul(uint32_t x, uint32_t y)
 	return (uint64_t) x * (uint64_t) y;
 }
 
+int key[128] = {
+	0,	0,	'Z',	'z',	')',	'0',	' ',	' ',
+	0,	0,	'B',	'b',	'L',	'l',	'_',	'-',
+	0,	0,	'Y',	'y',	'*',	'2',	'=',	'+',
+	0,	0,	'R',	'r',	'"',	'3',	':',	';',
+	'\n',	'\n',	'I',	'i',	' ',	'4',	'?',	'/',
+	'\b',	'\b',	'D',	'd',	'%',	'5',	']',	'.',
+	'\t',	'\t',	'N',	'n',	'$',	'6',	'[',	',',
+	0,	0,	'M',	'm',	' ',	'7',	'V',	'v',
+	0,	0,	'P',	'p',	' ',	'8',	'O',	'o',
+	0,	0,	'E',	'e',	'(',	'9',	'X',	'x',
+	0,	0,	'U',	'u',	'F',	'f',	0,	0,
+	0,	0,	'T',	't',	'G',	'g',	0,	0,
+	0,	0,	'H',	'h',	'J',	'j',	0,	0,
+	0,	0,	'C',	'c',	'K',	'k',	0,	0,
+	0,	0,	'A',	'a',	'Q',	'q',	0,	0,
+	0,	0,	'S',	's',	'W',	'w',	0,	0,
+};
+
 void
 print_char(int k)
 {
-	static int shift = 1;
+	int c;
+	static int lower;
 
-	switch (k) {
+	if (k == 4)
+		lower = 1;
 
-	// control codes
+	if (k == 8)
+		lower = 0;
 
-	case 0: // start read
-		break;
+	c = key[2 * k + lower];
 
-	case 3: // space
-		printf(" ");
-		break;
-
-	case 4: // lower case
-		shift = 0;
-		break;
-
-	case 8: // upper case
-		shift = 1;
-		break;
-
-	case 12: // color shift
-		break;
-
-	case 16: // carriage return
-		printf("\n");
-		break;
-
-	case 20: // back space
-		printf("\b");
-		break;
-
-	case 24:
-		printf("\t");
-		break;
-
-	case 32: // cond stop
-		break;
-
-	case 63: // delete
-		break;
-
-	// signs
-
-	case 7:
-		if (shift)
-			printf("_");
-		else
-			printf("-");
-		break;
-
-	case 11:
-		if (shift)
-			printf("=");
-		else
-			printf("+");
-		break;
-
-	// numerical
-
-	case 2:
-		if (shift)
-			printf(")");
-		else
-			printf("0");
-		break;
-
-	case 6:
-		if (shift)
-			printf("L");
-		else
-			printf("l");
-		break;
-
-	case 10:
-		if (shift)
-			printf("*");
-		else
-			printf("2");
-		break;
-
-	case 14:
-		if (shift)
-			printf("\"");
-		else
-			printf("3");
-		break;
-
-	case 18:
-		if (shift)
-			printf("#"); // Delta
-		else
-			printf("4");
-		break;
-
-	case 22:
-		if (shift)
-			printf("%%");
-		else
-			printf("5");
-		break;
-
-	case 26:
-		if (shift)
-			printf("$");
-		else
-			printf("6");
-		break;
-
-	case 30:
-		if (shift)
-			printf("#"); // pi
-		else
-			printf("7");
-		break;
-
-	case 34:
-		if (shift)
-			printf("#"); // Sigma
-		else
-			printf("8");
-		break;
-
-	case 38:
-		if (shift)
-			printf("(");
-		else
-			printf("9");
-		break;
-
-	case 42:
-		if (shift)
-			printf("F");
-		else
-			printf("f");
-		break;
-
-	case 46:
-		if (shift)
-			printf("G");
-		else
-			printf("g");
-		break;
-
-	case 50:
-		if (shift)
-			printf("J");
-		else
-			printf("j");
-		break;
-
-	case 54:
-		if (shift)
-			printf("K");
-		else
-			printf("k");
-		break;
-
-	case 58:
-		if (shift)
-			printf("Q");
-		else
-			printf("q");
-		break;
-
-	case 62:
-		if (shift)
-			printf("W");
-		else
-			printf("w");
-		break;
-
-	// letters
-
-	case 1:
-		if (shift)
-			printf("Z");
-		else
-			printf("z");
-		break;
-
-	case 5:
-		if (shift)
-			printf("B");
-		else
-			printf("b");
-		break;
-
-	case 9:
-		if (shift)
-			printf("Y");
-		else
-			printf("y");
-		break;
-
-	case 13:
-		if (shift)
-			printf("R");
-		else
-			printf("r");
-		break;
-
-	case 17:
-		if (shift)
-			printf("I");
-		else
-			printf("i");
-		break;
-
-	case 21:
-		if (shift)
-			printf("D");
-		else
-			printf("d");
-		break;
-
-	case 25:
-		if (shift)
-			printf("N");
-		else
-			printf("n");
-		break;
-
-	case 29:
-		if (shift)
-			printf("M");
-		else
-			printf("m");
-		break;
-
-	case 33:
-		if (shift)
-			printf("P");
-		else
-			printf("p");
-		break;
-
-	case 37:
-		if (shift)
-			printf("E");
-		else
-			printf("e");
-		break;
-
-	case 41:
-		if (shift)
-			printf("U");
-		else
-			printf("u");
-		break;
-
-	case 45:
-		if (shift)
-			printf("T");
-		else
-			printf("t");
-		break;
-
-	case 49:
-		if (shift)
-			printf("H");
-		else
-			printf("h");
-		break;
-
-	case 53:
-		if (shift)
-			printf("C");
-		else
-			printf("c");
-		break;
-
-	case 57:
-		if (shift)
-			printf("A");
-		else
-			printf("a");
-		break;
-
-	case 61:
-		if (shift)
-			printf("S");
-		else
-			printf("s");
-		break;
-
-	// remaining
-
-	case 15:
-		if (shift)
-			printf(":");
-		else
-			printf(";");
-		break;
-
-	case 19:
-		if (shift)
-			printf("?");
-		else
-			printf("/");
-		break;
-
-	case 23:
-		if (shift)
-			printf("]");
-		else
-			printf(".");
-		break;
-
-	case 27:
-		if (shift)
-			printf("[");
-		else
-			printf(",");
-		break;
-
-	case 31:
-		if (shift)
-			printf("V");
-		else
-			printf("v");
-		break;
-
-	case 35:
-		if (shift)
-			printf("O");
-		else
-			printf("o");
-		break;
-
-	case 39:
-		if (shift)
-			printf("X");
-		else
-			printf("x");
-		break;
-	}
+	if (c)
+		printf("%c", c);
 }
 
 void
