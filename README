@@ -1,0 +1,25 @@
+mel.c runs Mel Kaye's blackjack program by simulating an LGP-30.
+
+Mel's program file bkjck.txt needs to be in the current directory.
+
+The first column of output is player's hand, second column is dealer's hand.
+
+Enter 'y' for a card, 'n' to hold.
+
+% gcc mel.c
+% ./a.out
+
+
+
+	J - c	8 - c
+	J - h
+Card? n
+		J - s
+	total - 20	total - l8	score = $l.00
+
+
+	4 - c	9 - h
+	2 - d
+Card? y
+	6 - s
+Card? 
