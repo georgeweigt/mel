@@ -4,7 +4,16 @@ bkjck.txt needs to be in the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
-Enter 'y' for a card, 'n' to hold.
+Enter one of the following to be dealt a card:
+
+	yes
+	ok
+	si
+	ja
+	oui
+
+Anything else means 'stand'.
+
 
 % gcc mel.c
 % ./a.out 

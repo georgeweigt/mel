@@ -1,12 +1,21 @@
-/* August 3, 2020
+/* August 5, 2020
 
 This program runs Mel Kaye's blackjack program by simulating an LGP-30.
 
-Mel's program file bkjck.txt needs to be in the working directory.
+bkjck.txt needs to be in the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
-Enter 'y' for a card, 'n' to hold.
+Enter one of the following to be dealt a card:
+
+	yes
+	ok
+	si
+	ja
+	oui
+
+Anything else means 'stand'.
+
 
 % gcc mel.c
 % ./a.out 
@@ -60,8 +69,10 @@ char op[16] = {
 };
 
 void run_program(int track);
+uint64_t umul(uint32_t x, uint32_t y);
+uint64_t udiv(uint32_t x, uint32_t y);
 void print_char(int c);
-uint64_t mul(uint32_t x, uint32_t y);
+uint32_t read_word(void);
 void load_program(void);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
@@ -80,7 +91,6 @@ run_program(int track)
 {
 	int addr, counter, order;
 	uint32_t acc, w;
-	char buf[8];
 
 	counter = 64 * track;
 
@@ -112,22 +122,19 @@ run_program(int track)
 			break;
 
 		case 4: // i input
-			fgets(buf, sizeof buf, stdin);
-			if (buf[0] == 'y')
-				acc = 25;
-			else
-				acc = 0;
+			acc = read_word();
 			break;
 
-		case 5: // d divide (mel's program does not use division)
+		case 5: // d divide
+			acc = (uint32_t) udiv(acc, mem[addr]);
 			break;
 
 		case 6: // n multiply
-			acc = (uint32_t) mul(acc, mem[addr]);
+			acc = (uint32_t) umul(acc, mem[addr]);
 			break;
 
 		case 7: // m multiply
-			acc = (uint32_t) (mul(acc, mem[addr]) >> 31);
+			acc = (uint32_t) (umul(acc, mem[addr]) >> 31);
 			break;
 
 		case 8: // p print
@@ -168,12 +175,18 @@ run_program(int track)
 }
 
 uint64_t
-mul(uint32_t x, uint32_t y)
+umul(uint32_t x, uint32_t y)
 {
-	return (uint64_t) x * (uint64_t) y;
+	return (uint64_t) x * y;
 }
 
-int key[128] = {
+uint64_t
+udiv(uint32_t x, uint32_t y)
+{
+	return ((uint64_t) x << 31) / y;
+}
+
+int ptab[128] = {
 	0,	0,	'Z',	'z',	')',	'0',	' ',	' ',
 	0,	0,	'B',	'b',	'L',	'l',	'_',	'-',
 	0,	0,	'Y',	'y',	'*',	'2',	'=',	'+',
@@ -204,10 +217,46 @@ print_char(int k)
 	if (k == 8)
 		lower = 0;
 
-	c = key[2 * k + lower];
+	c = ptab[2 * k + lower];
 
 	if (c)
 		printf("%c", c);
+}
+
+int rtab[128] = {
+	0,	0,	0,	0,	0,	0,	0,	0,
+	20,	24,	16,	0,	0,	0,	0,	0,
+	0,	0,	0,	0,	0,	0,	0,	0,
+	0,	0,	0,	0,	0,	0,	0,	0,
+	3,	0,	14,	0,	26,	22,	0,	0,
+	38,	2,	10,	11,	27,	7,	23,	19,
+	2,	0,	10,	14,	18,	22,	26,	30,
+	34,	38,	15,	15,	0,	11,	0,	19,
+	0,	57,	5,	53,	21,	37,	42,	46,
+	49,	17,	50,	54,	6,	29,	25,	35,
+	33,	58,	13,	61,	45,	41,	31,	62,
+	39,	9,	1,	27,	0,	23,	0,	7,
+	0,	57,	5,	53,	21,	37,	42,	46,
+	49,	17,	50,	54,	6,	29,	25,	35,
+	33,	58,	13,	61,	45,	41,	31,	62,
+	39,	9,	1,	0,	0,	0,	0,	0,
+};
+
+uint32_t
+read_word(void)
+{
+	uint32_t w;
+	char buf[8], *s;
+
+	fgets(buf, sizeof buf, stdin);
+
+	s = buf;
+	w = 0;
+
+	while (*s && *s != '\n')
+		w = w << 6 | rtab[*s++];
+
+	return w;
 }
 
 void
