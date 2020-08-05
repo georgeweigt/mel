@@ -26,6 +26,8 @@ main()
 {
 	int c, i;
 
+	rtab['1'] = 6; // ascii 1 same as l
+
 	for (i = 0; i < 128; i++) {
 		c = ptab[i];
 		if (c)
