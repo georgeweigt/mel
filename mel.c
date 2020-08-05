@@ -161,11 +161,11 @@ run_program(int track)
 			break;
 
 		case 14: // a add
-			acc = acc + mem[addr];
+			acc += mem[addr];
 			break;
 
 		case 15: // s subtract
-			acc = acc + ((mem[addr] ^ 0xfffffffe) + 2);
+			acc += ((mem[addr] ^ 0xfffffffe) + 2);
 			break;
 		}
 	}
