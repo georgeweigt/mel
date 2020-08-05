@@ -246,7 +246,7 @@ uint32_t
 read_word(void)
 {
 	uint32_t w;
-	char buf[8], *s;
+	char buf[6], *s;
 
 	fgets(buf, sizeof buf, stdin);
 
@@ -254,7 +254,7 @@ read_word(void)
 	w = 0;
 
 	while (*s && *s != '\n')
-		w = w << 6 | rtab[*s++];
+		w = w << 6 | rtab[*s++ & 0x7f];
 
 	return w;
 }
