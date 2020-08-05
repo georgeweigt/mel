@@ -63,11 +63,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 uint32_t mem[4096];
 
-char op[16] = {
-	'z','b','y','r','i','d','n','m',
-	'p','e','u','t','h','c','a','s',
-};
-
 void run_program(int track);
 uint64_t umul(uint32_t x, uint32_t y);
 uint64_t udiv(uint32_t x, uint32_t y);
@@ -77,6 +72,7 @@ void load_program(void);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
 void dump_track(int n);
+void trace(int k);
 void stop(int line);
 
 int
@@ -96,11 +92,12 @@ run_program(int track)
 
 	for (;;) {
 
+		// trace(counter);
+
 		w = mem[counter];
+
 		order = w >> 16 & 0xf;
 		addr = w >> 2 & 0xfff;
-
-		// printf("%02d%02d %08x: %c %02d%02d\n", counter >> 6, counter & 0x3f, w, op[order], addr >> 6, addr & 0x3f);
 
 		counter = (counter + 1) & 0xfff;
 
@@ -390,16 +387,25 @@ load_word(char *s, uint32_t *p)
 void
 dump_track(int n)
 {
-	int i, k, o, s, t;
-	uint32_t w;
-	for (i = 0; i < 64; i++) {
-		k = 64 * n + i;
-		w = mem[k];
-		o = w >> 16 & 0xf;
-		t = w >> 8 & 0x3f;
-		s = w >> 2 & 0x3f;
-		printf("%02d%02d %08x: %c %02d%02d\n", k >> 6, k & 0x3f, w, op[o], t, s);
-	}
+	int i, k;
+	k = 64 * n;
+	for (i = 0; i < 64; i++)
+		trace(k++);
+}
+
+char otab[16] = {
+	'z','b','y','r','i','d','n','m','p','e','u','t','h','c','a','s',
+};
+
+void
+trace(int k)
+{
+	int o, s, t;
+	uint32_t w = mem[k];
+	o = w >> 16 & 0xf;
+	t = w >> 8 & 0x3f;
+	s = w >> 2 & 0x3f;
+	printf("%02d%02d %08x: %c %02d%02d\n", k >> 6, k & 0x3f, w, otab[o], t, s);
 }
 
 void
