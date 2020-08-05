@@ -206,18 +206,17 @@ int ptab[128] = {
 };
 
 void
-print_char(int k)
+print_char(int c)
 {
-	int c;
 	static int lower;
 
-	if (k == 4)
+	if (c == 4)
 		lower = 1;
 
-	if (k == 8)
+	if (c == 8)
 		lower = 0;
 
-	c = ptab[2 * k + lower];
+	c = ptab[2 * c + lower];
 
 	if (c)
 		printf("%c", c);
