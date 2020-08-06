@@ -286,8 +286,11 @@ load_program(void)
 
 	s = buf;
 
-	while (*s)
+	while (*s) {
 		s = load_track(s);
+		while (*s == '\n' || *s == ' ')
+			s++;
+	}
 
 	free(buf);
 }
@@ -320,9 +323,6 @@ load_track(char *s)
 	s = load_word(s, &w);
 
 	// dump_track(n);
-
-	while (*s == '\n' || *s == ' ')
-		s++;
 
 	return s;
 }
