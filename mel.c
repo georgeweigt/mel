@@ -287,10 +287,12 @@ load_program(void)
 
 	s = buf;
 
-	while (*s) {
-		s = load_track(s);
+	for (;;) {
 		while (isspace(*s))
 			s++;
+		if (*s == '\0')
+			break;
+		s = load_track(s);
 	}
 
 	free(buf);
@@ -301,9 +303,6 @@ load_track(char *s)
 {
 	int i, k, n;
 	uint32_t w;
-
-	while (isspace(*s))
-		s++;
 
 	if (*s++ != 'v')
 		stop(__LINE__);
