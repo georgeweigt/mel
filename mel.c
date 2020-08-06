@@ -60,6 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdint.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <ctype.h>
 
 uint32_t mem[4096];
 
@@ -288,7 +289,7 @@ load_program(void)
 
 	while (*s) {
 		s = load_track(s);
-		while (*s == '\n' || *s == ' ')
+		while (isspace(*s))
 			s++;
 	}
 
@@ -301,7 +302,7 @@ load_track(char *s)
 	int i, k, n;
 	uint32_t w;
 
-	while (*s == '\n' || *s == ' ')
+	while (isspace(*s))
 		s++;
 
 	if (*s++ != 'v')
@@ -333,7 +334,7 @@ load_word(char *s, uint32_t *p)
 	int c;
 	uint32_t w = 0;
 
-	while (*s == '\n' || *s == ' ')
+	while (isspace(*s))
 		s++;
 
 	for (;;) {
