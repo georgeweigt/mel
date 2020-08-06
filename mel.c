@@ -1,4 +1,4 @@
-/* August 5, 2020
+/* August 6, 2020
 
 This program runs Mel Kaye's blackjack program by simulating an LGP-30.
 
