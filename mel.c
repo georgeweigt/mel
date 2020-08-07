@@ -1,8 +1,8 @@
 /* August 6, 2020
 
-This program runs Mel Kaye's blackjack program by simulating an LGP-30.
+This program runs Mel Kaye's blackjack program bkjck.txt by simulating an LGP-30.
 
-bkjck.txt needs to be in the working directory.
+bkjck.txt is read from the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
