@@ -303,7 +303,7 @@ load_track(char *s)
 		mem[k++] = w & 0xfffffffe;
 	}
 
-	s = load_word(s, &w);
+	s = load_word(s, &w); // checksum
 
 	// dump_track(n);
 
