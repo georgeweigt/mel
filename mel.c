@@ -270,21 +270,18 @@ load_program(void)
 	}
 
 	n = lseek(fd, 0, SEEK_END);
-
-	lseek(fd, 0, SEEK_SET);
-
+	if (n < 0)
+		stop(__LINE__);
+	if (lseek(fd, 0, SEEK_SET))
+		stop(__LINE__);
 	buf = malloc(n + 1);
-
 	if (buf == NULL)
 		stop(__LINE__);
-
 	if (read(fd, buf, n) != n)
 		stop(__LINE__);
 
 	close(fd);
-
 	buf[n] = '\0';
-
 	s = buf;
 
 	for (;;) {
