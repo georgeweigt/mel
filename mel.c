@@ -70,11 +70,11 @@ uint64_t udiv(uint32_t x, uint32_t y);
 void print_char(int c);
 uint32_t read_word(void);
 void load_program(void);
+char *read_file(char *filename);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
 void dump_track(int n);
 void trace(int k);
-void stop(int line);
 
 int
 main(int argc, char **argv)
@@ -259,29 +259,13 @@ read_word(void)
 void
 load_program(void)
 {
-	int fd, n;
 	char *buf, *s;
 
-	fd = open("bkjck.txt", O_RDONLY, 0);
+	buf = read_file("bkjck.txt");
 
-	if (fd == -1) {
-		printf("cannot open bkjck.txt\n");
-		exit(1);
-	}
-
-	n = lseek(fd, 0, SEEK_END);
-	if (n < 0)
-		stop(__LINE__);
-	if (lseek(fd, 0, SEEK_SET))
-		stop(__LINE__);
-	buf = malloc(n + 1);
 	if (buf == NULL)
-		stop(__LINE__);
-	if (read(fd, buf, n) != n)
-		stop(__LINE__);
+		exit(1);
 
-	close(fd);
-	buf[n] = '\0';
 	s = buf;
 
 	for (;;) {
@@ -296,13 +280,53 @@ load_program(void)
 }
 
 char *
+read_file(char *filename)
+{
+	int fd, n;
+	char *buf;
+
+	fd = open(filename, O_RDONLY, 0);
+
+	if (fd == -1) {
+		printf("cannot open %s\n", filename);
+		return NULL;
+	}
+
+	n = lseek(fd, 0, SEEK_END);
+
+	if (n < 0)
+		return NULL;
+
+	if (lseek(fd, 0, SEEK_SET))
+		return NULL;
+
+	buf = malloc(n + 1);
+
+	if (buf == NULL)
+		return NULL;
+
+	if (read(fd, buf, n) != n) {
+		free(buf);
+		return NULL;
+	}
+
+	close(fd);
+
+	buf[n] = '\0';
+
+	return buf;
+}
+
+char *
 load_track(char *s)
 {
 	int i, k, n;
 	uint32_t w;
 
-	if (*s++ != 'v')
-		stop(__LINE__);
+	if (*s++ != 'v') {
+		printf("file format error\n");
+		exit(1);
+	}
 
 	s = load_word(s, &w);
 
@@ -372,7 +396,8 @@ load_word(char *s, uint32_t *p)
 			w |= 15;
 			break;
 		default:
-			stop(__LINE__);
+			printf("file format error\n");
+			exit(1);
 		}
 	}
 
@@ -403,11 +428,4 @@ trace(int k)
 	t = w >> 8 & 0x3f;
 	s = w >> 2 & 0x3f;
 	printf("%02d%02d %08x: %c %02d%02d\n", k >> 6, k & 0x3f, w, otab[o], t, s);
-}
-
-void
-stop(line)
-{
-	printf("see mel.c line number %d\n", line);
-	exit(1);
 }
