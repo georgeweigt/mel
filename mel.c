@@ -70,11 +70,11 @@ uint64_t udiv(uint32_t x, uint32_t y);
 void print_char(int c);
 uint32_t read_word(void);
 void load_program(void);
-char *read_file(char *filename);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
 void dump_track(int n);
 void trace(int k);
+char *read_file(char * filename);
 
 int
 main(int argc, char **argv)
@@ -280,51 +280,6 @@ load_program(void)
 }
 
 char *
-read_file(char *filename)
-{
-	int fd, n;
-	char *buf;
-
-	fd = open(filename, O_RDONLY, 0);
-
-	if (fd == -1) {
-		printf("cannot open %s\n", filename);
-		return NULL;
-	}
-
-	n = lseek(fd, 0, SEEK_END);
-
-	if (n < 0) {
-		close(fd);
-		return NULL;
-	}
-
-	if (lseek(fd, 0, SEEK_SET)) {
-		close(fd);
-		return NULL;
-	}
-
-	buf = malloc(n + 1);
-
-	if (buf == NULL) {
-		close(fd);
-		return NULL;
-	}
-
-	if (read(fd, buf, n) != n) {
-		close(fd);
-		free(buf);
-		return NULL;
-	}
-
-	close(fd);
-
-	buf[n] = '\0';
-
-	return buf;
-}
-
-char *
 load_track(char *s)
 {
 	int i, k, n;
@@ -435,4 +390,49 @@ trace(int k)
 	t = w >> 8 & 0x3f;
 	s = w >> 2 & 0x3f;
 	printf("%02d%02d %08x: %c %02d%02d\n", k >> 6, k & 0x3f, w, otab[o], t, s);
+}
+
+char *
+read_file(char *filename)
+{
+	int fd, n;
+	char *buf;
+
+	fd = open(filename, O_RDONLY, 0);
+
+	if (fd == -1) {
+		printf("cannot open %s\n", filename);
+		return NULL;
+	}
+
+	n = lseek(fd, 0, SEEK_END);
+
+	if (n < 0) {
+		close(fd);
+		return NULL;
+	}
+
+	if (lseek(fd, 0, SEEK_SET)) {
+		close(fd);
+		return NULL;
+	}
+
+	buf = malloc(n + 1);
+
+	if (buf == NULL) {
+		close(fd);
+		return NULL;
+	}
+
+	if (read(fd, buf, n) != n) {
+		close(fd);
+		free(buf);
+		return NULL;
+	}
+
+	close(fd);
+
+	buf[n] = '\0';
+
+	return buf;
 }
