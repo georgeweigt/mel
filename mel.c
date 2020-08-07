@@ -294,18 +294,25 @@ read_file(char *filename)
 
 	n = lseek(fd, 0, SEEK_END);
 
-	if (n < 0)
+	if (n < 0) {
+		close(fd);
 		return NULL;
+	}
 
-	if (lseek(fd, 0, SEEK_SET))
+	if (lseek(fd, 0, SEEK_SET)) {
+		close(fd);
 		return NULL;
+	}
 
 	buf = malloc(n + 1);
 
-	if (buf == NULL)
+	if (buf == NULL) {
+		close(fd);
 		return NULL;
+	}
 
 	if (read(fd, buf, n) != n) {
+		close(fd);
 		free(buf);
 		return NULL;
 	}
