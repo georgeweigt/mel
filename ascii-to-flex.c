@@ -1,3 +1,5 @@
+// emit an array for converting ascii to flexowriter values
+
 #include <stdio.h>
 
 int ptab[128] = {
