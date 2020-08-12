@@ -283,7 +283,7 @@ char *
 load_track(char *s)
 {
 	int i, k, n;
-	uint32_t w;
+	uint32_t c = 0, w;
 
 	if (*s++ != 'v') {
 		printf("file format error\n");
@@ -294,18 +294,19 @@ load_track(char *s)
 
 	n = w >> 8 & 0x3f; // track number
 
-	// printf("writing track %02d\n", n);
-
 	k = 64 * n;
 
 	for (i = 0; i < 64; i++) {
 		s = load_word(s, &w);
 		mem[k++] = w & 0xfffffffe;
+		c += w & 0x7ffffffe;
+		c = (c + (c >> 29)) & 0x3ffffffe;
 	}
 
-	s = load_word(s, &w); // checksum
+	s = load_word(s, &w);
 
-	// dump_track(n);
+	if (c != w)
+		printf("checksum error\n");
 
 	return s;
 }
