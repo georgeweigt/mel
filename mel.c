@@ -69,10 +69,10 @@ uint64_t umul(uint32_t x, uint32_t y);
 uint64_t udiv(uint32_t x, uint32_t y);
 void print_char(int c);
 uint32_t read_word(void);
+void trace(int k);
 void load_program(void);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
-void trace(int k);
 char *read_file(char * filename);
 
 int
@@ -255,6 +255,21 @@ read_word(void)
 	return w;
 }
 
+char otab[16] = {
+	'z','b','y','r','i','d','n','m','p','e','u','t','h','c','a','s',
+};
+
+void
+trace(int k)
+{
+	int o, s, t;
+	uint32_t w = mem[k];
+	o = w >> 16 & 0xf;
+	t = w >> 8 & 0x3f;
+	s = w >> 2 & 0x3f;
+	printf("%02d%02d %08x: %c %02d%02d\n", k >> 6, k & 0x3f, w, otab[o], t, s);
+}
+
 void
 load_program(void)
 {
@@ -361,21 +376,6 @@ load_word(char *s, uint32_t *p)
 	*p = w;
 
 	return s;
-}
-
-char otab[16] = {
-	'z','b','y','r','i','d','n','m','p','e','u','t','h','c','a','s',
-};
-
-void
-trace(int k)
-{
-	int o, s, t;
-	uint32_t w = mem[k];
-	o = w >> 16 & 0xf;
-	t = w >> 8 & 0x3f;
-	s = w >> 2 & 0x3f;
-	printf("%02d%02d %08x: %c %02d%02d\n", k >> 6, k & 0x3f, w, otab[o], t, s);
 }
 
 char *
