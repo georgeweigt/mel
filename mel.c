@@ -72,7 +72,6 @@ uint32_t read_word(void);
 void load_program(void);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
-void dump_track(int n);
 void trace(int k);
 char *read_file(char * filename);
 
@@ -283,7 +282,7 @@ char *
 load_track(char *s)
 {
 	int i, k, n;
-	uint32_t c = 0, w;
+	uint32_t w;
 
 	if (*s++ != 'v') {
 		printf("file format error\n");
@@ -298,15 +297,10 @@ load_track(char *s)
 
 	for (i = 0; i < 64; i++) {
 		s = load_word(s, &w);
-		mem[k++] = w & 0xfffffffe;
-		c += w & 0x7ffffffe;
-		c = (c + (c >> 29)) & 0x3ffffffe;
+		mem[k++] = w;
 	}
 
-	s = load_word(s, &w);
-
-	if (c != w)
-		printf("checksum error\n");
+	s = load_word(s, &w); // checksum
 
 	return s;
 }
@@ -367,15 +361,6 @@ load_word(char *s, uint32_t *p)
 	*p = w;
 
 	return s;
-}
-
-void
-dump_track(int n)
-{
-	int i, k;
-	k = 64 * n;
-	for (i = 0; i < 64; i++)
-		trace(k++);
 }
 
 char otab[16] = {
