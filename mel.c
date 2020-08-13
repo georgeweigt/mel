@@ -296,7 +296,7 @@ load_program(void)
 char *
 load_track(char *s)
 {
-	int i, k, n;
+	int i, k;
 	uint32_t w;
 
 	if (*s++ != 'v') {
@@ -306,9 +306,7 @@ load_track(char *s)
 
 	s = load_word(s, &w);
 
-	n = w >> 8 & 0x3f; // track number
-
-	k = 64 * n;
+	k = 64 * (w >> 8 & 0x3f);
 
 	for (i = 0; i < 64; i++) {
 		s = load_word(s, &w);
