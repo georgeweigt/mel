@@ -1,4 +1,4 @@
-/* August 12, 2020
+/* August 13, 2020
 
 This program runs Mel's blackjack program bkjck.txt by simulating an LGP-30.
 
@@ -165,7 +165,7 @@ run_program(int track)
 			break;
 
 		case 15: // s subtract
-			acc += ((mem[addr] ^ 0xfffffffe) + 2);
+			acc += (mem[addr] ^ 0xfffffffe) + 2;
 			break;
 		}
 	}
