@@ -297,7 +297,8 @@ char *
 load_track(char *s)
 {
 	int i, k, n;
-	uint32_t c = 0, w;
+	uint32_t w;
+	uint64_t c = 0;
 
 	if (*s++ != 'v') {
 		printf("file format error\n");
@@ -314,10 +315,11 @@ load_track(char *s)
 		s = load_word(s, &w);
 		mem[k++] = w;
 		c += w & 0x7fffffff;
-		c = (c + (c >> 29)) & 0x3ffffffe;
 	}
 
 	s = load_word(s, &w); // checksum
+
+	c = (c + (c >> 29)) & 0x3ffffffe;
 
 	if (c != w)
 		printf("checksum error\n");
