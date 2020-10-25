@@ -4,4 +4,4 @@ default:
 	rm -f nather.aux nather.log
 
 clean:
-	rm -f nather.aux nather.log nather.synctex.gz
+	rm -f nather.aux nather.log nather.pdf nather.synctex.gz
