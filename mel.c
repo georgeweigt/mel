@@ -1,6 +1,6 @@
 /* August 13, 2020
 
-This program runs Mel's blackjack program bkjck.txt by simulating an LGP-30 computer.
+This program runs Mel Kaye's blackjack program bkjck.txt by simulating an LGP-30 computer.
 
 bkjck.txt is read from the working directory.
 
