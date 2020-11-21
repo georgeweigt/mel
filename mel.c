@@ -1,10 +1,19 @@
 /* August 13, 2020
 
-This program runs Mel's blackjack program bkjck.txt by simulating an LGP-30.
+This program runs Mel's blackjack program bkjck.txt by simulating an LGP-30 computer.
 
 bkjck.txt is read from the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
+
+	% gcc mel.c
+	% ./a.out 
+
+
+
+		A - c	6 - d
+		2 - c
+	Card?
 
 Enter one of the following to be dealt a card:
 
@@ -14,17 +23,7 @@ Enter one of the following to be dealt a card:
 	ja
 	oui
 
-Anything else means 'stand'.
-
-
-% gcc mel.c
-% ./a.out 
-
-
-
-	A - c	6 - d
-	2 - c
-Card?
+Anything else means stand.
 
 
 BSD 2-Clause License
