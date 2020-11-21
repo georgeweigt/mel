@@ -14,12 +14,11 @@ Enter one of the following to be dealt a card:
 
 Anything else means 'stand'.
 
-
-% gcc mel.c
-% ./a.out 
-
+	% gcc mel.c
+	% ./a.out 
 
 
-	A - c	6 - d
-	2 - c
-Card?
+
+		A - c	6 - d
+		2 - c
+	Card?
