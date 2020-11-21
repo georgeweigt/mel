@@ -4,16 +4,6 @@ bkjck.txt is read from the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
-Enter one of the following to be dealt a card:
-
-	yes
-	ok
-	si
-	ja
-	oui
-
-Anything else means 'stand'.
-
 	% gcc mel.c
 	% ./a.out 
 
@@ -22,3 +12,13 @@ Anything else means 'stand'.
 		A - c	6 - d
 		2 - c
 	Card?
+
+Enter one of the following to be dealt a card:
+
+	yes
+	ok
+	si
+	ja
+	oui
+
+Anything else means stand.
