@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+// p for print, converts flexowriter value to ascii
+
 int ptab[128] = {
 	0,	0,	'Z',	'z',	')',	'0',	' ',	' ',
 	0,	0,	'B',	'b',	'L',	'l',	'_',	'-',
@@ -21,7 +23,7 @@ int ptab[128] = {
 	0,	0,	'S',	's',	'W',	'w',	0,	0,
 };
 
-int rtab[128];
+int rtab[128]; // r for read, converts ascii to flexowriter value
 
 int
 main()
