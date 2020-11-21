@@ -1,4 +1,4 @@
-This program (mel.c) runs Mel Kaye's blackjack program bkjck.txt by simulating an LGP-30 computer.
+Program mel.c runs Mel Kaye's blackjack program bkjck.txt by simulating an LGP-30 computer.
 
 bkjck.txt is read from the working directory.
 
