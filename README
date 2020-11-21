@@ -1,3 +1,5 @@
+http://eigenmath.org/nather.pdf
+
 mel.c runs Mel Kaye's blackjack program bkjck.txt by simulating an LGP-30.
 
 bkjck.txt is read from the working directory.
