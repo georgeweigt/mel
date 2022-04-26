@@ -17,7 +17,7 @@ The first column of output is player's hand, second column is dealer's hand.
 Card?
 ```
 
-Enter one of the following to be dealt a card:
+Enter one of the following to be dealt a card.
 
 ```
 yes
