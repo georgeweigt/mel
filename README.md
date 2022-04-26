@@ -20,11 +20,11 @@ Card?
 Enter one of the following to be dealt a card:
 
 ```
-	yes
-	ok
-	si
-	ja
-	oui
+yes
+ok
+si
+ja
+oui
 ```
 
 Anything else means stand.
