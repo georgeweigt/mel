@@ -351,18 +351,22 @@ load_word(char *s, uint32_t *p)
 			w |= c - '0';
 			break;
 		case 'f':
+			w |= 0xa;
+			break;
 		case 'g':
-			w |= c - 'f' + 10;
+			w |= 0xb;
 			break;
 		case 'j':
+			w |= 0xc;
+			break;
 		case 'k':
-			w |= c - 'j' + 12;
+			w |= 0xd;
 			break;
 		case 'q':
-			w |= 14;
+			w |= 0xe;
 			break;
 		case 'w':
-			w |= 15;
+			w |= 0xf;
 			break;
 		default:
 			printf("file format error\n");
