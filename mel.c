@@ -312,7 +312,7 @@ load_track(char *s)
 		s = load_word(s, &w);
 		mem[k++] = w;
 
-		// Note: LGP-30 halted on overflow
+		// Note: LGP-30 computer halts on overflow
 
 		if (w & 0x40000000)
 			w += 2;
