@@ -312,15 +312,17 @@ load_track(char *s)
 		s = load_word(s, &w);
 		mem[k++] = w;
 
+		// Note: LGP-30 halted on overflow
+
 		if (w & 0x40000000)
 			w += 2;
-		w &= 0x3ffffffe;
+		w &= 0x3ffffffe; // 29 bits to prevent overflow
 
-		c += w;
+		c += w; // does not overflow
 
 		if (c & 0x40000000)
 			c += 2;
-		c &= 0x3ffffffe;
+		c &= 0x3ffffffe; // 29 bits to prevent overflow
 	}
 
 	s = load_word(s, &w);
