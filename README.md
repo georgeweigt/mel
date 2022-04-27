@@ -5,7 +5,7 @@ Program `mel.c` runs Mel Kaye's blackjack program `bkjck.txt` by simulating an L
 To build and run
 
 ```
-gcc mel.c
+make
 ./a.out
 ```
 
