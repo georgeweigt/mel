@@ -1,7 +1,9 @@
+.PHONEY: default clean
+
 default:
 	gcc mel.c
 	pdflatex nather.tex
-	rm -f nather.aux nather.log
+	make clean
 
 clean:
-	rm -f nather.aux nather.log nather.pdf nather.synctex.gz
+	rm -f *.aux *.log *.synctex.gz
