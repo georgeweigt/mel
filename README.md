@@ -9,7 +9,7 @@ make
 ./a.out
 ```
 
-The first column of output is player's hand, second column is dealer's hand.
+The first column of output is player's cards, second column is dealer's cards.
 
 ```
 	A - c	6 - d
