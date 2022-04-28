@@ -1,4 +1,4 @@
-.PHONEY: default clean
+.PHONY: default clean
 
 default:
 	make a.out
