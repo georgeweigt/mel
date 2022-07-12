@@ -12,4 +12,4 @@ nather.pdf: nather.tex
 	rm -f nather.aux nather.log
 
 clean:
-	rm -f a.out nather.pdf
+	rm -f a.out nather.pdf *.aux *.log *.synctex.gz
