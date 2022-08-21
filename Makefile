@@ -9,7 +9,6 @@ a.out: mel.c
 
 nather.pdf: nather.tex
 	pdflatex nather.tex
-	rm -f nather.aux nather.log
 
 clean:
-	rm -f a.out nather.pdf *.aux *.log *.synctex.gz
+	rm -f a.out nather.pdf
