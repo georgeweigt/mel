@@ -1,4 +1,4 @@
-.PHONY: default clean
+.PHONY: default
 
 default:
 	make a.out
@@ -9,6 +9,3 @@ a.out: mel.c
 
 nather.pdf: nather.tex
 	pdflatex nather.tex
-
-clean:
-	rm -f a.out nather.pdf
