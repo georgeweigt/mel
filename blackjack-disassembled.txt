@@ -1,5 +1,10 @@
 http://tubetime.us/index.php/2014/06/14/mel-blackjack-and-the-lgp-30/
-The track number is listed first, once for every block. In each block, every line has the sector number first, followed by the instruction mnemonic, following by the track and sector numbers of the instruction’s target. After that are the raw bits. The first two instructions are clear instructions followed by an unconditional branch. This goes to track 49 sector 34. You can follow the instruction flow from there.
+The track number is listed first, once for every block. In each block, every
+line has the sector number first, followed by the instruction mnemonic,
+following by the track and sector numbers of the instruction’s target. After
+that are the raw bits. The first two instructions are clear instructions
+followed by an unconditional branch. This goes to track 49 sector 34. You can
+follow the instruction flow from there.
 
 
 Track 45 (Raw: v0402k00')
