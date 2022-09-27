@@ -1,4 +1,3 @@
-
 Program `mel.c` runs Mel Kaye's blackjack program `bkjck.txt` by simulating an LGP-30 computer.
 
 To build and run
@@ -27,3 +26,5 @@ oui
 ```
 
 Anything else means stand.
+
+[nather.pdf](https://georgeweigt.github.io/nather.pdf)
