@@ -403,19 +403,17 @@ read_file(char *filename)
 
 	fd = open(filename, O_RDONLY, 0);
 
-	if (fd == -1) {
-		printf("cannot open %s\n", filename);
+	if (fd == -1)
 		return NULL;
-	}
 
 	n = lseek(fd, 0, SEEK_END);
 
-	if (n < 0) {
+	if (n == -1) {
 		close(fd);
 		return NULL;
 	}
 
-	if (lseek(fd, 0, SEEK_SET)) {
+	if (lseek(fd, 0, SEEK_SET) == -1) {
 		close(fd);
 		return NULL;
 	}
