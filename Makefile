@@ -1,9 +1,3 @@
-.PHONY: default
-
-default:
-	make a.out
-	make nather.pdf
-
 a.out: mel.c
 	gcc mel.c
 
