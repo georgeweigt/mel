@@ -1,8 +1,8 @@
 /* August 13, 2020
 
-This program runs Mel Kaye's blackjack program bkjck.txt by simulating an LGP-30 computer.
+This program runs Mel Kaye's blackjack program bkjck.tx by simulating an LGP-30 computer.
 
-bkjck.txt is read from the working directory.
+bkjck.tx is read from the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
@@ -274,7 +274,7 @@ load_program(void)
 {
 	char *buf, *s;
 
-	buf = read_file("bkjck.txt");
+	buf = read_file("bkjck.tx");
 
 	if (buf == NULL)
 		exit(1);
@@ -400,23 +400,26 @@ read_file(char *filename)
 {
 	int fd, n;
 	char *buf;
+	off_t t;
 
 	fd = open(filename, O_RDONLY, 0);
 
-	if (fd == -1)
+	if (fd < 0)
 		return NULL;
 
-	n = lseek(fd, 0, SEEK_END);
+	t = lseek(fd, 0, SEEK_END);
 
-	if (n == -1) {
+	if (t < 0 || t > 0x1000000) { // 16 MB max
 		close(fd);
 		return NULL;
 	}
 
-	if (lseek(fd, 0, SEEK_SET) == -1) {
+	if (lseek(fd, 0, SEEK_SET)) {
 		close(fd);
 		return NULL;
 	}
+
+	n = (int) t;
 
 	buf = malloc(n + 1);
 
