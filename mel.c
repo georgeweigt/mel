@@ -6,8 +6,8 @@ bkjck.tx is read from the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
-	% gcc mel.c
-	% ./a.out 
+	gcc mel.c
+	./a.out 
 
 
 
