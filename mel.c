@@ -76,7 +76,7 @@ char *load_word(char *s, uint32_t *p);
 char *read_file(char * filename);
 
 int
-main(int argc, char **argv)
+main(int argc, char *argv[])
 {
 	load_program();
 	run_program(45);
