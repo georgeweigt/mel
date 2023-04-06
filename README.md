@@ -14,8 +14,8 @@ make
 The first column of output is player's cards, second column is dealer's cards.
 
 ```
-	A - c	6 - d
-	2 - c
+               A - c          6 - d
+               2 - c
 Card?
 ```
 

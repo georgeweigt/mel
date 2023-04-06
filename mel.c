@@ -6,14 +6,14 @@ bkjck.tx is read from the working directory.
 
 The first column of output is player's hand, second column is dealer's hand.
 
-	gcc mel.c
-	./a.out 
+gcc mel.c
+./a.out
 
 
 
-		A - c	6 - d
-		2 - c
-	Card?
+               A - c          6 - d
+               2 - c
+Card?
 
 Enter one of the following to be dealt a card:
 
@@ -61,7 +61,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <unistd.h>
 #include <ctype.h>
 
-uint32_t mem[4096];
+uint32_t mem[4096]; // main memory
+int lowercase, col; // printer state
 
 void run_program(int track);
 uint64_t umul(uint32_t x, uint32_t y);
@@ -204,18 +205,36 @@ int ptab[128] = {
 void
 print_char(int c)
 {
-	static int lower;
-
 	if (c == 4)
-		lower = 1;
+		lowercase = 1;
 
 	if (c == 8)
-		lower = 0;
+		lowercase = 0;
 
-	c = ptab[2 * c + lower];
+	c = ptab[2 * c + lowercase];
 
-	if (c)
-		printf("%c", c);
+	switch (c) {
+	case 0:
+		break;
+	case '\b':
+		putchar('\b');
+		if (col)
+			col--;
+		break;
+	case '\t':
+		do
+			putchar(' ');
+		while (++col % 15); // tab stops were set mechanically
+		break;
+	case '\n':
+		putchar('\n');
+		col = 0;
+		break;
+	default:
+		putchar(c);
+		col++;
+		break;
+	}
 }
 
 int rtab[128] = {
@@ -244,6 +263,8 @@ read_word(void)
 	char buf[6], *s;
 
 	fgets(buf, sizeof buf, stdin);
+
+	col = 0;
 
 	s = buf;
 	w = 0;
