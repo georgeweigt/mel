@@ -1,4 +1,6 @@
-/* August 13, 2020
+/* github.com/georgeweigt/story-of-mel
+
+August 13, 2020
 
 This program runs Mel Kaye's blackjack program bkjck.tx by simulating an LGP-30 computer.
 
@@ -34,7 +36,6 @@ Card?
                               K - s
                blackjack      bust           score = -$3.00
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
