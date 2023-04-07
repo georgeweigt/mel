@@ -1,4 +1,4 @@
-/* github.com/georgeweigt/story-of-mel
+/* github.com/georgeweigt/story-of-mel/mel.c
 
 August 13, 2020
 
@@ -188,11 +188,15 @@ int ptab[128] = {
 void
 print_char(int c)
 {
-	if (c == 4)
+	if (c == 4) {
 		lowercase = 1;
+		return;
+	}
 
-	if (c == 8)
+	if (c == 8) {
 		lowercase = 0;
+		return;
+	}
 
 	c = ptab[2 * c + lowercase];
 
