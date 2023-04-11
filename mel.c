@@ -53,7 +53,7 @@ uint64_t udiv(uint32_t x, uint32_t y);
 void print_char(int c);
 uint32_t read_word(void);
 void trace(int k);
-void load_program(void);
+void load_program(char *filename);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
 char *read_file(char * filename);
@@ -61,7 +61,7 @@ char *read_file(char * filename);
 int
 main(int argc, char *argv[])
 {
-	load_program();
+	load_program("bkjck.tx");
 	run_program(45);
 }
 
@@ -278,11 +278,11 @@ trace(int k)
 }
 
 void
-load_program(void)
+load_program(char *filename)
 {
 	char *buf, *s;
 
-	buf = read_file("bkjck.tx");
+	buf = read_file(filename);
 
 	if (buf == NULL)
 		exit(1);
