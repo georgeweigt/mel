@@ -1,5 +1,7 @@
 [The Story of Mel](https://georgeweigt.github.io/nather.pdf)
 
+[LGP-30 Documentation](https://georgeweigt.github.io/LGP-30/index.html)
+
 #
 
 Program `mel.c` runs Mel Kaye's blackjack program `bkjck.tx` by simulating an LGP-30 computer.
