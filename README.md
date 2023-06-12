@@ -5,8 +5,7 @@
 #
 
 Program `mel.c` runs Mel Kaye's blackjack program `bkjck.tx` by simulating an LGP-30 computer.
-Note that `bkjck.tx` is Mel's code for running on the LGP-30 computer,
-not the bigger, better, faster RPC-4000.
+Note that `bkjck.tx` does not run on the bigger, better, faster RPC-4000.
 
 To build and run
 
