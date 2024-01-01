@@ -33,12 +33,3 @@ oui
 Anything else means stand.
 
 Press the return key 18 times to get a blackjack.
-
-```
-               A - c          4 - d
-              l0 - s
-Card? 
-                              9 - d
-                              K - s
-               blackjack      bust           score = -$3.00
-```
