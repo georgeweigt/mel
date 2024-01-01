@@ -1,2 +1,9 @@
+.DS_Store
+*.swp
+*.tmp
+*.aux
+*.log
+*.synctex.gz
+*.toc
 a.out
 nather.pdf
