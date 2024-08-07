@@ -337,17 +337,11 @@ load_track(char *s)
 		s = load_word(s, &w);
 		mem[k++] = w;
 
-		// Note: LGP-30 computer halts on overflow
+		// checksum was 29 bits instead of 30 to avoid arithmetic overflow
 
-		if (w & 0x40000000)
-			w += 2;
-		w &= 0x3ffffffe; // 29 bits to prevent overflow
-
-		c += w; // does not overflow
-
-		if (c & 0x40000000)
-			c += 2;
-		c &= 0x3ffffffe; // 29 bits to prevent overflow
+		c += w & 0x7ffffffe; // sign bit not protected
+		c += c >> 29;
+		c &= 0x3ffffffe; // 29 bits
 	}
 
 	s = load_word(s, &w);
