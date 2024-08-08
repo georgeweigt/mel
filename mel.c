@@ -73,7 +73,7 @@ void trace(int k);
 void load_program(char *filename);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
-char *read_file(char * filename);
+char *read_file(char *filename);
 
 int
 main(int argc, char *argv[])
@@ -297,24 +297,11 @@ trace(int k)
 void
 load_program(char *filename)
 {
-	char *buf, *s;
-
-	buf = read_file(filename);
-
-	if (buf == NULL)
+	char *s = read_file(filename);
+	if (s == NULL)
 		exit(1);
-
-	s = buf;
-
-	for (;;) {
-		while (isspace(*s))
-			s++;
-		if (*s == '\0')
-			break;
+	while (*s)
 		s = load_track(s);
-	}
-
-	free(buf);
 }
 
 char *
@@ -323,10 +310,14 @@ load_track(char *s)
 	int i, k;
 	uint32_t c = 0, w;
 
-	if (*s++ != 'v') {
-		printf("file format error\n");
+	while (isspace(*s))
+		s++;
+
+	if (*s == 0)
+		return s;
+
+	if (*s++ != 'v')
 		exit(1);
-	}
 
 	s = load_word(s, &w);
 
@@ -361,12 +352,9 @@ load_word(char *s, uint32_t *p)
 	while (isspace(*s))
 		s++;
 
-	for (;;) {
+	while (*s != '\'') {
 
 		c = *s++;
-
-		if (c == '\'')
-			break;
 
 		w <<= 4;
 
@@ -404,14 +392,13 @@ load_word(char *s, uint32_t *p)
 			w |= 0xf;
 			break;
 		default:
-			printf("file format error\n");
 			exit(1);
 		}
 	}
 
 	*p = w;
 
-	return s;
+	return s + 1;
 }
 
 char *
