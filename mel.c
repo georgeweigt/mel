@@ -297,11 +297,14 @@ trace(int k)
 void
 load_program(char *filename)
 {
-	char *s = read_file(filename);
-	if (s == NULL)
+	char *buf, *s;
+	buf = read_file(filename);
+	if (buf == NULL)
 		exit(1);
+	s = buf;
 	while (*s)
 		s = load_track(s);
+	free(buf);
 }
 
 char *
