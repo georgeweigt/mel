@@ -1,7 +1,5 @@
 [The Story of Mel](https://georgeweigt.github.io/nather.pdf)
 
-[Ed Nather's Usenet post](https://web.archive.org/web/20180212083430/https://cboh.org/mel.txt)
-
 #
 
 Program `mel.c` runs Mel Kaye's blackjack program `bkjck.tx` by simulating an LGP-30 computer.
