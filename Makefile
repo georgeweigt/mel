@@ -11,4 +11,4 @@ all:
 	make nather.pdf
 
 clean:
-	rm -f a.out *.aux *.log *.synctex.gz
+	rm -f *.aux *.log *.synctex.gz
