@@ -1,8 +1,5 @@
 .DS_Store
 *.swp
 *.tmp
-*.aux
-*.log
-*.synctex.gz
-*.pdf
 a.out
+mel

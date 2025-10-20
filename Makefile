@@ -1,2 +1,2 @@
-a.out: mel.c
-	$(CC) mel.c
+mel: mel.c
+	$(CC) -Wall -O0 -o mel mel.c

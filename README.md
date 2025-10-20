@@ -9,7 +9,7 @@ To build and run
 
 ```
 make
-./a.out
+./mel
 ```
 
 The first column of output is player's cards, second column is dealer's cards.
