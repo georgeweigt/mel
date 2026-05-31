@@ -411,7 +411,11 @@ read_file(char *filename)
 	char *buf;
 	off_t t;
 
-	fd = open(filename, O_RDONLY, 0);
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
+
+	fd = open(filename, O_RDONLY | O_BINARY);
 
 	if (fd < 0)
 		return NULL;
