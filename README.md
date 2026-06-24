@@ -1,7 +1,5 @@
 [Real Programmers Don’t Use Fortran, Either!](https://georgeweigt.github.io/nather.pdf) by Ed Nather (Story of Mel)
 
-#
-
 Program `mel.c` runs Mel Kaye's blackjack program `bkjck.tx` by simulating an LGP-30 computer.
 Note that `bkjck.tx` only runs on the LGP-30, not the RPC-4000.
 
