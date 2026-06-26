@@ -73,7 +73,7 @@ void trace(int k);
 void load_program(char *filename);
 char *load_track(char *s);
 char *load_word(char *s, uint32_t *p);
-char *read_file(char *filename);
+char *readfile(char *filename);
 
 int
 main(int argc, char *argv[])
@@ -298,7 +298,7 @@ void
 load_program(char *filename)
 {
 	char *buf, *s;
-	buf = read_file(filename);
+	buf = readfile(filename);
 	if (buf == NULL)
 		exit(1);
 	s = buf;
@@ -405,7 +405,7 @@ load_word(char *s, uint32_t *p)
 }
 
 char *
-read_file(char *filename)
+readfile(char *filename)
 {
 	int fd, n;
 	char *buf;
@@ -422,7 +422,7 @@ read_file(char *filename)
 
 	t = lseek(fd, 0, SEEK_END);
 
-	if (t < 0 || t > 1000000) { // one megabyte max
+	if (t < 0 || t > 1000000) {
 		close(fd);
 		return NULL;
 	}
